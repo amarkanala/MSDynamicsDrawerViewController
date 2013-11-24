@@ -65,9 +65,30 @@ typedef NS_ENUM(NSInteger, MSDynamicsDrawerPaneState) {
 @class MSDynamicsDrawerViewController;
 
 /**
+ `MSDynamicsDrawerViewControllerDelegate` perform other actions for `MSDynamicsDrawerViewController`
+ */
+
+@protocol MSDynamicsDrawerViewControllerDelegate <NSObject>
+
+@optional
+
+/**
+ Provide an opportunity to disabled pane in some situation such as in the deep stack of navigation controller.
+ 
+ @param drawerViewController The drawer view controller requesting this information.
+ @return YES if you need to disabled pane. The default value is NO.
+ */
+
+- (BOOL)dynamicsDrawerViewControllerShouldDisablePanning:(MSDynamicsDrawerViewController *)drawerViewController;
+
+@end
+
+/**
  `MSDynamicsDrawerViewController` is a container view controller that manages the presentation of a single "pane" view controller overlaid over one or two "drawer" view controllers. The drawer view controllers are hidden by default, but can be exposed by a user-initiaed swipe in the direction that that drawer view controller is set in.
  */
 @interface MSDynamicsDrawerViewController : UIViewController
+
+@property (nonatomic, weak) id <MSDynamicsDrawerViewControllerDelegate> delegate;
 
 ///------------------------------------------
 /// @name Managing the Child View Controllers

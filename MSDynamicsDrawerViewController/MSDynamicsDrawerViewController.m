@@ -947,6 +947,10 @@ void MSDynamicsDrawerDirectionActionForMaskedValues(MSDynamicsDrawerDirection di
 
 - (void)panePanned:(UIPanGestureRecognizer *)gestureRecognizer
 {
+    if ([self.delegate respondsToSelector:@selector(dynamicsDrawerViewControllerShouldDisablePanning:)] &&
+        [self.delegate dynamicsDrawerViewControllerShouldDisablePanning:self])
+        return;
+    
     static MSDynamicsDrawerDirection panDrawerDirection;
     static CGPoint panStartLocationInPane;
     static CGFloat panVelocity;
